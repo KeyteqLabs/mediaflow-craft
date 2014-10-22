@@ -55,6 +55,7 @@ class Mediaflow_SettingsController extends BaseController {
             $this->previewWidth,
             $this->previewHeight
         );
+        $result['thumb'] = preg_replace('/^http(s?):/i', '', $result['thumb']);
         $result['isImage'] = $item->isImage();
         return $result;
     }
