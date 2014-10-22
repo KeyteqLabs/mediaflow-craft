@@ -58,6 +58,9 @@ class Mediaflow_MediaFieldType extends BaseFieldType
 
     public function prepValueFromPost($value)
     {
+        if (is_string($value) && strlen($value) > 0) {
+            $value = json_decode($value, true);
+        }
         if (!is_array($value)) {
             $value = array();
         }
