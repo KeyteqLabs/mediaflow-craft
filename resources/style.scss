@@ -10,30 +10,24 @@
         float: left;
         width: 150px;
         height: 150px;
-        &.empty {
-            border: 1px dashed #333;
-            border-radius: 3px;
-        }
+        margin-right: 1em;
         img {
-            margin-right: 1em;
             border-radius: 3px;
-
             @include checkered();
         }
     }
 
     .mediaflow-meta {
-        dt {
-            width: 100px;
-            float: left;
+        th, td {
+            padding: 0 10px 2px 0;
+        }
+        th, .title {
             font-weight: bold;
             text-align: right;
-            padding: 0 10px 4px 0;
         }
-        dd {
-            clear: right;
+        td, .value {
+            white-space: nowrap;
             font-size: 110%;
-            padding: 0 10px 4px 0;
         }
     }
 }

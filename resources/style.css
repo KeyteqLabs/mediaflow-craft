@@ -6,27 +6,22 @@
   .mediaflow-preview .thumb {
     float: left;
     width: 150px;
-    height: 150px; }
-    .mediaflow-preview .thumb.empty {
-      border: 1px dashed #333;
-      border-radius: 3px; }
+    height: 150px;
+    margin-right: 1em; }
     .mediaflow-preview .thumb img {
-      margin-right: 1em;
       border-radius: 3px;
       background-color: #eee;
       background-image: linear-gradient(45deg, #666 25%, transparent 25%, transparent 75%, #666 75%, #666), linear-gradient(45deg, #666 25%, transparent 25%, transparent 75%, #666 75%, #666);
       background-size: 8px;
       background-position: 0 0, 4px 4px; }
-  .mediaflow-preview .mediaflow-meta dt {
-    width: 100px;
-    float: left;
+  .mediaflow-preview .mediaflow-meta th, .mediaflow-preview .mediaflow-meta td {
+    padding: 0 10px 2px 0; }
+  .mediaflow-preview .mediaflow-meta th, .mediaflow-preview .mediaflow-meta .title {
     font-weight: bold;
-    text-align: right;
-    padding: 0 10px 4px 0; }
-  .mediaflow-preview .mediaflow-meta dd {
-    clear: right;
-    font-size: 110%;
-    padding: 0 10px 4px 0; }
+    text-align: right; }
+  .mediaflow-preview .mediaflow-meta td, .mediaflow-preview .mediaflow-meta .value {
+    white-space: nowrap;
+    font-size: 110%; }
 
 .matrixblock .mediaflow-fold {
   margin: 1.2em -14px 0 -14px;

@@ -3,20 +3,34 @@
         Failed to connect to Mediaflow using current settings
     </div>
     <div ng-show="connection" ng-controller="MediaFlowFieldCtrl">
-        <div class="mediaflow-preview clearafter">
-            <div class="thumb" ng-class="{empty:!selected.file}">
-                <img ng-src="[[selected.thumb]]" ng-show="selected">
+        <div class="mediaflow-preview clearafter" ng-show="selected.id">
+            <div class="thumb">
+                <img ng-src="[[selected.thumb]]">
             </div>
-            <div class="mediaflow-meta" ng-show="selected.file">
-                <dl>
-                    <dt>Name</dt>
-                    <dd>[[selected.name]]</dd>
-                    <dt>Dimensions</dt>
-                    <dd>[[selected.file.width]]x[[selected.file.height]]</dd>
-                    <dt>Size</dt>
-                    <dd>[[selected.file.size|sizeConverter]]</dd>
-                </dl>
-            </div>
+                <table class="mediaflow-meta">
+                    <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <td>[[selected.name]]</td>
+                        </tr>
+                        <tr>
+                            <th>Width</th>
+                            <td>[[selected.file.width]]</td>
+                        </tr>
+                        <tr>
+                            <th>Height</th>
+                            <td>[[selected.file.height]]</td>
+                        </tr>
+                        <tr ng-show="selected.uploaded">
+                            <th>Uploaded</th>
+                            <td>[[selected.uploaded|date:'short']]</td>
+                        </tr>
+                        <tr>
+                            <th>Size</th>
+                            <td>[[selected.file.size|sizeConverter]]</td>
+                        </tr>
+                    </tbody>
+                </table>
         </div>
 
         <button
@@ -27,8 +41,8 @@
         <button
             type="button"
             class="btn danger"
-            ng-show="selected"
-            ng-click="selected = false">Remove</button>
+            ng-show="selected.id"
+            ng-click="selected = emptyDefaults">Remove</button>
 
         <div ng-show="showMedia" class="mediaflow-fold">
             <div class="clearafter">

@@ -50,7 +50,12 @@ mediaflow.controller('MediaFlowCtrl', function ($scope, $http, $upload) {
         var url = '/admin/mediaflow/media';
         var config = {};
         if (search) config.params = {q: search};
-        return $http.get(url, config);
+        return $http.get(url, config).success(function(response) {
+            return response.map(function(i) {
+                i.uploaded = new Date(i.uploaded * 1000);
+                return i;
+            });
+        });
     };
 
     $scope.onFileSelect = function($files) {
@@ -96,7 +101,7 @@ mediaflow.controller('MediaFlowFieldCtrl', function ($scope, $http, $upload) {
         }
     });
 
-    $scope.select = function (medium) {
+    $scope.select = function(medium) {
         $scope.selected = medium;
         $scope.showMedia = false;
     };

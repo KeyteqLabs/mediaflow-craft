@@ -15,6 +15,7 @@ class Mediaflow_MediaModel extends BaseModel
 			'host'    => AttributeType::String,
 			'isImage'    => AttributeType::Bool,
 			'thumb'    => AttributeType::String,
+			'uploaded'    => AttributeType::Number,
 			'file' => AttributeType::Mixed,
 		));
 	}

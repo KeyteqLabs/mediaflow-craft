@@ -51,12 +51,14 @@ class Mediaflow_SettingsController extends BaseController {
 
     protected function formatItem($item) {
         $result = $item->toArray();
+        $result['id'] = $item->getId();
         $result['thumb'] = $item->getThumbnailUrl(
             $this->previewWidth,
             $this->previewHeight
         );
         $result['thumb'] = preg_replace('/^http(s?):/i', '', $result['thumb']);
         $result['isImage'] = $item->isImage();
+        $result['uploaded'] = $item->getCreated();
         return $result;
     }
 

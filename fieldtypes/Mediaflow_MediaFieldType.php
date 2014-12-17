@@ -13,11 +13,13 @@ class Mediaflow_MediaFieldType extends BaseFieldType
         $id = craft()->templates->formatInputId($name);
         $class = get_class($this->element);
         $inMatrix = $class === 'Craft\Mediaflow_MediaFieldType';
+        $emptyDefaults = array('id' => null);
         return craft()->templates->render('mediaflow/input', array(
             'inMatrix' => $inMatrix,
             'id' => $id,
             'name'  => $name,
-            'value' => $value ? $value->getAttributes() : array()
+            'value' => $value ? $value->getAttributes() : $emptyDefaults,
+            'emptyDefaults' => $emptyDefaults
         ));
     }
 
@@ -30,6 +32,7 @@ class Mediaflow_MediaFieldType extends BaseFieldType
             'name' => 'name',
             'host' => 'host',
             'isImage' => 'isImage',
+            'uploaded' => 'uploaded',
             'thumbnailUrl' => 'thumb',
             'thumb' => 'thumb',
             '_id' => 'id',
