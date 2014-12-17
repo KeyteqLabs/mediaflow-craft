@@ -1,126 +1,102 @@
 {% extends "_layouts/cp" %}
 
 {% set title = "Mediaflow"|t %}
+{% set hasSidebar = true %}
 
-{% set tabs = {
-browse: { label: "Browse"|t, url: url('mediaflow/index') }
-} %}
+{% set sidebar %}
+<div class="buttons first">
+    <input type="file"
+        multiple="multiple"
+        name="assets-upload"
+        style="display: none;">
+    <div class="btn submit assets-upload-button"
+        data-icon="↑"
+        style="position: relative; overflow: hidden;"
+        role="button"
+    >
+        <label for="mediaflow_file_upload">Upload files</label>
+        <input style="display:none"
+            id="mediaflow_file_upload"
+            type="file"
+            ng-file-select="onFileSelect($files)"
+            multiple
+        >
+    </div>
+</div>
+<nav>
+    <ul>
+        <li>
+            <a class="sel" tabindex="0">Mediaflow library</a>
+        </li>
+    </ul>
+</nav>
+{% endset %}
 
 {% set content %}
-
 <div ng-app="mediaflow" ng-controller="MediaFlowCtrl">
-    <div ng-hide="connection" class="error ng-cloak">
-        Failed to connect to Mediaflow using current settings
-    </div>
-    <div ng-show="connection" id="content"
-        class="content has-sidebar"
-        ng-controller="MediaFlowBrowseCtrl">
-        <div class="resize-triggers">
-            <div class="expand-trigger">
-                <div style="width: 1025px; height: 191px;"></div>
+    <div ng-hide="connection" class="error ng-cloak">Failed to connect to Mediaflow using current settings</div>
+    <div class="elementindex" ng-show="connection" ng-controller="MediaFlowBrowseCtrl">
+        <div class="main">
+            <div class="toolbar">
+                <table class="inputs fullwidth">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div class="texticon search icon">
+                                <input class="text nicetext fullwidth" type="search" autocomplete="off" ng-model="searchText"
+                                        placeholder="Search">
+                            </div>
+                        </td>
+                        <td class="thin viewbtns">
+                            <div class="btngroup">
+                                <div role="button" class="btn" ng-class="{active: view=='list'}" ng-click="view='list'" title="Display in a table"
+                                        data-icon="list"></div>
+                                <div role="button" class="btn" ng-class="{active: view=='thumbnails'}" ng-click="view='thumbnails'" title="Display as thumbnails"
+                                        data-icon="grid"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="spinner hidden" ng-class="{hidden: !spin}"></div>
             </div>
-            <div class="contract-trigger"></div>
-        </div>
-        <div id="sidebar" class="sidebar first" style="top: -24px; max-height: 190px;">
-            <div class="resize-triggers">
-                <div class="expand-trigger">
-                    <div style="width: 219px; height: 129px;"></div>
-                </div>
-                <div class="contract-trigger"></div>
-            </div>
-            <div class="buttons first">
-                <input type="file"
-                    multiple="multiple"
-                    name="assets-upload"
-                    style="display: none;">
-                <div class="btn submit assets-upload-button"
-                    data-icon="↑"
-                    style="position: relative; overflow: hidden;"
-                    role="button"
-                >
-                    <label for="mediaflow_file_upload">Upload files</label>
-                    <input style="display:none"
-                        id="mediaflow_file_upload"
-                        type="file"
-                        ng-file-select="onFileSelect($files)"
-                        multiple
-                    >
-                </div>
-            </div>
-            <nav>
-                <ul>
-                    <li>
-                        <a class="sel" tabindex="0">Mediaflow library</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
 
-        <div class="elementindex">
-
-
-            <div class="main">
-                <div class="toolbar">
-                    <table class="inputs fullwidth">
-                        <tbody>
+            <div class="elements" ng-show="view==='list'">
+                <div class="tableview">
+                    <table class="data fullwidth">
+                        <thead>
                         <tr>
-                            <td>
-                                <div class="texticon search icon">
-                                    <input class="text nicetext fullwidth" type="search" autocomplete="off" ng-model="searchText"
-                                           placeholder="Search">
+                            <th scope="col" data-attribute="title" class="ordered asc">Title</th>
+                            <th scope="col" data-attribute="size">Size</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="medium in media|filter:searchText">
+                            <td scope="row">
+                                <div class="element hasthumb">
+                                    <img ng-show="medium.isImage" class="elementthumb elementthumb4" ng-src="[[medium.thumb]]" />
+                                    <div class="label"><span class="title">[[medium.name]]</span>
+                                    </div>
                                 </div>
                             </td>
-                            <td class="thin viewbtns">
-                                <div class="btngroup">
-                                    <div role="button" class="btn" ng-class="{active: view=='list'}" ng-click="view='list'" title="Display in a table"
-                                         data-icon="list"></div>
-                                    <div role="button" class="btn" ng-class="{active: view=='thumbnails'}" ng-click="view='thumbnails'" title="Display as thumbnails"
-                                         data-icon="grid"></div>
-                                </div>
-                            </td>
+                            <td data-title="Size">[[medium.file.size|sizeConverter]]</td>
                         </tr>
                         </tbody>
                     </table>
-                    <div class="spinner hidden" ng-class="{hidden: !spin}"></div>
                 </div>
+            </div>
 
-                <div class="elements" ng-show="view==='list'">
-                    <div class="tableview">
-                        <table class="data fullwidth">
-                            <thead>
-                            <tr>
-                                <th scope="col" data-attribute="title" class="ordered asc">Title</th>
-                                <th scope="col" data-attribute="size">Size</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="medium in media|filter:searchText">
-                                <td scope="row">
-                                    <div class="element hasthumb">
-                                        <img ng-show="medium.isImage" class="elementthumb elementthumb4" ng-src="[[medium.thumb]]" />
-                                        <div class="label"><span class="title">[[medium.name]]</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td data-title="Size">[[medium.file.size|sizeConverter]]</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="elements" ng-show="view==='thumbnails'">
-                    <ul class="thumbsview">
-                        <li ng-repeat="medium in media|filter:searchText">
-                            <div class="element hasthumb">
-                                <img ng-show="medium.isImage" class="elementthumb elementthumb4" ng-src="[[medium.thumb]]" />
-                                <div class="label"><span class="title">[[medium.name]]</span>
-                                </div>
+            <div class="elements" ng-show="view==='thumbnails'">
+                <ul class="thumbsview">
+                    <li ng-repeat="medium in media|filter:searchText">
+                        <div class="element hasthumb">
+                            <img ng-show="medium.isImage" class="elementthumb elementthumb4" ng-src="[[medium.thumb]]" />
+                            <div class="label"><span class="title">[[medium.name]]</span>
                             </div>
-                        </li>
-                    </ul>
-                    <div class="clear"></div>
-                </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="clear"></div>
             </div>
         </div>
     </div>
