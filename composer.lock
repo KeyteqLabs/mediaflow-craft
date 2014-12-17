@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3c3636f6adfa51482b0b8cfac5d1e4e2",
+    "hash": "6b09e52cdcf30f80f42d115da51479db",
     "packages": [
         {
             "name": "composer/installers",
-            "version": "v1.0.18",
+            "version": "v1.0.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "74fb0a7a1a23696d9c8cc2fba5903f6711cdd067"
+                "reference": "89d77bfbee79e16653f7162c86e602cc188471db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/74fb0a7a1a23696d9c8cc2fba5903f6711cdd067",
-                "reference": "74fb0a7a1a23696d9c8cc2fba5903f6711cdd067",
+                "url": "https://api.github.com/repos/composer/installers/zipball/89d77bfbee79e16653f7162c86e602cc188471db",
+                "reference": "89d77bfbee79e16653f7162c86e602cc188471db",
                 "shasum": ""
             },
             "replace": {
@@ -59,6 +59,7 @@
                 "Hurad",
                 "MODX Evo",
                 "OXID",
+                "Thelia",
                 "WolfCMS",
                 "agl",
                 "annotatecms",
@@ -68,9 +69,11 @@
                 "codeigniter",
                 "concrete5",
                 "croogo",
+                "dokuwiki",
                 "drupal",
                 "elgg",
                 "fuelphp",
+                "grav",
                 "installer",
                 "joomla",
                 "kohana",
@@ -94,20 +97,20 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2014-08-18 20:00:12"
+            "time": "2014-11-29 01:29:17"
         },
         {
             "name": "keyteqlabs/keymedia",
-            "version": "v1.0.2",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KeyteqLabs/keymedia-php.git",
-                "reference": "a2484a8224c8a8c78d873ab5dfa2b841f067b4f1"
+                "reference": "939c38a89e1bfd14fadbebe1b5e9f82a15779eb2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KeyteqLabs/keymedia-php/zipball/a2484a8224c8a8c78d873ab5dfa2b841f067b4f1",
-                "reference": "a2484a8224c8a8c78d873ab5dfa2b841f067b4f1",
+                "url": "https://api.github.com/repos/KeyteqLabs/keymedia-php/zipball/939c38a89e1bfd14fadbebe1b5e9f82a15779eb2",
+                "reference": "939c38a89e1bfd14fadbebe1b5e9f82a15779eb2",
                 "shasum": ""
             },
             "require": {
@@ -136,17 +139,16 @@
             ],
             "authors": [
                 {
-                    "name": "Raymond Julin",
-                    "email": "raymond.julin@gmail.com",
-                    "homepage": "http://raymondjulin.com"
-                },
-                {
                     "name": "Jakub Zienkiewicz",
                     "email": "jakub.zienkiewicz@espeo.pl"
+                },
+                {
+                    "name": "Raymond Julin",
+                    "email": "raymond.julin@gmail.com"
                 }
             ],
             "description": "Keymedia API wrapper in PHP",
-            "time": "2014-06-02 08:47:06"
+            "time": "2014-12-17 09:24:36"
         },
         {
             "name": "mashape/unirest-php",
@@ -198,21 +200,14 @@
             "time": "2014-04-05 23:28:21"
         }
     ],
-    "packages-dev": [
-
-    ],
-    "aliases": [
-
-    ],
+    "packages-dev": [],
+    "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
+    "stability-flags": [],
     "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": {
         "php": ">=5.3.0"
     },
-    "platform-dev": [
-
-    ]
+    "platform-dev": []
 }
