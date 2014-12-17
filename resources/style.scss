@@ -17,6 +17,8 @@
         img {
             margin-right: 1em;
             border-radius: 3px;
+
+            @include checkered();
         }
     }
 
@@ -74,6 +76,8 @@
             width: 100px;
             height: 100px;
             border-radius: 3px;
+
+            @include checkered();
             @include transition(all .4s ease);
 
             &:hover {

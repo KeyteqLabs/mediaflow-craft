@@ -12,7 +12,11 @@
       border-radius: 3px; }
     .mediaflow-preview .thumb img {
       margin-right: 1em;
-      border-radius: 3px; }
+      border-radius: 3px;
+      background-color: #eee;
+      background-image: linear-gradient(45deg, #666 25%, transparent 25%, transparent 75%, #666 75%, #666), linear-gradient(45deg, #666 25%, transparent 25%, transparent 75%, #666 75%, #666);
+      background-size: 8px;
+      background-position: 0 0, 4px 4px; }
   .mediaflow-preview .mediaflow-meta dt {
     width: 100px;
     float: left;
@@ -53,6 +57,10 @@
       width: 100px;
       height: 100px;
       border-radius: 3px;
+      background-color: #eee;
+      background-image: linear-gradient(45deg, #666 25%, transparent 25%, transparent 75%, #666 75%, #666), linear-gradient(45deg, #666 25%, transparent 25%, transparent 75%, #666 75%, #666);
+      background-size: 8px;
+      background-position: 0 0, 4px 4px;
       -webkit-transition: all 0.4s ease;
       -moz-transition: all 0.4s ease;
       -o-transition: all 0.4s ease;
