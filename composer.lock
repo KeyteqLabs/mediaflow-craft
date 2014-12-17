@@ -101,16 +101,16 @@
         },
         {
             "name": "keyteqlabs/keymedia",
-            "version": "v1.1.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KeyteqLabs/keymedia-php.git",
-                "reference": "939c38a89e1bfd14fadbebe1b5e9f82a15779eb2"
+                "reference": "cbb39681dde79ca0e11df29bf16e5b0353a74681"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KeyteqLabs/keymedia-php/zipball/939c38a89e1bfd14fadbebe1b5e9f82a15779eb2",
-                "reference": "939c38a89e1bfd14fadbebe1b5e9f82a15779eb2",
+                "url": "https://api.github.com/repos/KeyteqLabs/keymedia-php/zipball/cbb39681dde79ca0e11df29bf16e5b0353a74681",
+                "reference": "cbb39681dde79ca0e11df29bf16e5b0353a74681",
                 "shasum": ""
             },
             "require": {
@@ -148,7 +148,7 @@
                 }
             ],
             "description": "Keymedia API wrapper in PHP",
-            "time": "2014-12-17 09:24:36"
+            "time": "2014-12-17 12:32:14"
         },
         {
             "name": "mashape/unirest-php",
