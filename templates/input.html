@@ -4,7 +4,7 @@
     </div>
     <div ng-show="connection" ng-controller="MediaFlowFieldCtrl">
         <div class="mediaflow-preview clearafter">
-            <div class="thumb" ng-class="{empty:!selected.file}">
+            <div class="thumb" ng-class="{empty:!selected.file}" ng-show="selected>
                 <img ng-src="[[selected.thumb]]" ng-show="selected">
             </div>
             <div class="mediaflow-meta" ng-show="selected.file">
