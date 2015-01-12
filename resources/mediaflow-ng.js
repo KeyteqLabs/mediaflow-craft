@@ -76,6 +76,16 @@ mediaflow.controller('MediaFlowCtrl', function ($scope, $http, $upload) {
     }
 });
 
+mediaflow.directive('showFocus', ['$timeout', function($timeout) {
+    return function(scope, element, attrs) {
+        scope.$watch(attrs.showFocus, function(showing) {
+            $timeout(function() {
+                showing && element[0].focus();
+            });
+        }, true);
+    };
+}]);
+
 mediaflow.controller('MediaFlowFieldCtrl', function ($scope, $http, $upload) {
     $scope.showMedia = false;
     $scope.selected = false;
