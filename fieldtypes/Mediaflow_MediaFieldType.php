@@ -33,6 +33,7 @@ class Mediaflow_MediaFieldType extends BaseFieldType
             'host' => 'host',
             'isImage' => 'isImage',
             'uploaded' => 'uploaded',
+            'shareUrl' => 'shareUrl',
             'thumbnailUrl' => 'thumb',
             'thumb' => 'thumb',
             '_id' => 'id',
