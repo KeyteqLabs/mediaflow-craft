@@ -1,7 +1,4 @@
 var mediaflow = angular.module('mediaflow', ['angularFileUpload']);
-mediaflow.config(function ($interpolateProvider) {
-    $interpolateProvider.startSymbol('[[').endSymbol(']]');
-});
 
 mediaflow.filter('sizeConverter', function () {
     return function (size, precision) {

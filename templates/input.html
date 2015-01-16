@@ -3,31 +3,32 @@
         Failed to connect to Mediaflow using current settings
     </div>
     <div ng-show="connection" ng-controller="MediaFlowFieldCtrl">
+        {% raw %}
         <div class="mediaflow-preview clearafter" ng-show="selected.id">
             <div class="thumb">
-                <img ng-src="[[selected.thumb]]">
+                <img ng-src="{{selected.thumb}}">
             </div>
                 <table class="mediaflow-meta">
                     <tbody>
                         <tr>
                             <th>Name</th>
-                            <td>[[selected.name]]</td>
+                            <td>{{selected.name}}</td>
                         </tr>
                         <tr>
                             <th>Width</th>
-                            <td>[[selected.file.width]]</td>
+                            <td>{{selected.file.width}}</td>
                         </tr>
                         <tr>
                             <th>Height</th>
-                            <td>[[selected.file.height]]</td>
+                            <td>{{selected.file.height}}</td>
                         </tr>
                         <tr ng-show="selected.uploaded">
                             <th>Uploaded</th>
-                            <td>[[selected.uploaded|date:'short']]</td>
+                            <td>{{selected.uploaded|date:'short'}}</td>
                         </tr>
                         <tr>
                             <th>Size</th>
-                            <td>[[selected.file.size|sizeConverter]]</td>
+                            <td>{{selected.file.size|sizeConverter}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -68,24 +69,21 @@
                 <ul>
                     <li ng-repeat="medium in media">
                         <img ng-show="medium.isImage"
-                            ng-src="[[medium.thumb]]"
+                            ng-src="{{medium.thumb}}"
                             ng-click="select(medium)"
                         >
                     </li>
                 </ul>
             </div>
         </div>
+        {% endraw %}
         <div ng-init="selected={{value|json_encode()}}"></div>
-        <input type="hidden" value="[[selected|json]]" name="{{name}}" />
+        <input type="hidden"
+            {% raw %}value="{{selected|json}}"{% endraw %}
+            name="{{name}}" />
     </div>
 </div>
 {% includeJsResource "mediaflow/angular.min.js" %}
 {% includeJsResource "mediaflow/angularjs-file-upload.js" %}
 {% includeJsResource "mediaflow/mediaflow-ng.js" %}
-{% includeJsResource "mediaflow/bootstrap.js" %}
 {% includeCssResource "mediaflow/style.css" %}
-{% if inMatrix %}
-<script>
-    mediaflowBootstrap();
-</script>
-{% endif %}

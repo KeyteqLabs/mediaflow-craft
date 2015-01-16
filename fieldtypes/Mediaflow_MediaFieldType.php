@@ -10,12 +10,11 @@ class Mediaflow_MediaFieldType extends BaseFieldType
 
     public function getInputHtml($name, $value)
     {
-        $id = craft()->templates->formatInputId($name);
-        $class = get_class($this->element);
-        $inMatrix = $class === 'Craft\Mediaflow_MediaFieldType';
+        $id = craft()->templates->namespaceInputId($name);
+        $js = "angular.bootstrap(document.querySelector('#{$id}-field .mediaflow-app'), ['mediaflow']);";
+        craft()->templates->includeJs($js);
         $emptyDefaults = array('id' => null);
         return craft()->templates->render('mediaflow/input', array(
-            'inMatrix' => $inMatrix,
             'id' => $id,
             'name'  => $name,
             'value' => $value ? $value->getAttributes() : $emptyDefaults,
