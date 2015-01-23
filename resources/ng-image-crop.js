@@ -22,7 +22,6 @@ angular.module('mfImageCrop', []).directive('mfImageCrop', function() {
             ctrl.saveCrop = function(e,s,c) {
                 ctrl.stopPropagation(e);
                 var selection = [c.x, c.y, c.w, c.h].map(Math.round);
-                console.log('set', ctrl.current, selection);
                 $scope.selected.version[ctrl.current.name] = {
                     coords: selection,
                     width: ctrl.current.size[0],
@@ -56,28 +55,28 @@ angular.module('mfImageCrop', []).directive('mfImageCrop', function() {
                 var width = size[0], height = size[1];
                 $crop.Jcrop({
                     aspectRatio: width / height,
-                    boxWidth: 400,
-                    boxHeight: 600,
+                    boxWidth: 600,
+                    boxHeight: 400,
                     setSelect: (selection || [0, 0, width, height])
                 }, onInitialize);
             };
 
             $scope.crop = function(name) {
-                var size = $scope.versions[name];
-                var selection = null;
+                var size = ctrl.current.size = $scope.versions[name];
                 $scope.active = ctrl.current.name = name;
-                ctrl.current.size = size;
+                var selection = null;
                 if (name in $scope.selected.version) {
                     selection = $scope.selected.version[name].coords;
                 }
-                console.log('load crop', name, selection);
+                setCrop(selection, size);
                 setCrop(selection, size);
             }
-
-            for (var version in $scope.versions) {
-                $scope.crop(version);
-                break;
-            }
+            setTimeout(function() {
+                for (var version in $scope.versions) {
+                    $scope.crop(version);
+                    break;
+                }
+            },100);
         }
     };
 });

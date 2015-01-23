@@ -36,12 +36,11 @@
 
         <button type="button"
             class="btn dashed"
-            ng-show="!showMedia"
             ng-click="showMedia = true;scaling = false">Browse</button>
         <button type="button"
             class="btn"
             ng-show="selected.id"
-            ng-click="scaling = true">Crop</button>
+            ng-click="scaling = true; showMedia = false">Crop</button>
         <button type="button"
             class="btn danger"
             ng-show="selected.id"
