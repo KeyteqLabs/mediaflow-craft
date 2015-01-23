@@ -22,6 +22,9 @@ angular.module('mfImageCrop', []).directive('mfImageCrop', function() {
             ctrl.saveCrop = function(e,s,c) {
                 ctrl.stopPropagation(e);
                 var selection = [c.x, c.y, c.w, c.h].map(Math.round);
+                if (!$scope.selected.version) {
+                    $scope.selected.version = {};
+                }
                 $scope.selected.version[ctrl.current.name] = {
                     coords: selection,
                     width: ctrl.current.size[0],
@@ -64,10 +67,8 @@ angular.module('mfImageCrop', []).directive('mfImageCrop', function() {
             $scope.crop = function(name) {
                 var size = ctrl.current.size = $scope.versions[name];
                 $scope.active = ctrl.current.name = name;
-                var selection = null;
-                if (name in $scope.selected.version) {
-                    selection = $scope.selected.version[name].coords;
-                }
+                var crops = $scope.selected.version;
+                var selection = crops && name in crops ? crops[name].coords : null;
                 setCrop(selection, size);
                 setCrop(selection, size);
             }
