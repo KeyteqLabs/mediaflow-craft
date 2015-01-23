@@ -1,5 +1,6 @@
 <?php
 namespace Craft;
+use Keyteq\Keymedia\KeymediaClient;
 
 class Mediaflow_MediaModel extends BaseModel
 {
@@ -18,10 +19,59 @@ class Mediaflow_MediaModel extends BaseModel
 			'uploaded'    => AttributeType::Number,
 			'shareUrl'    => AttributeType::String,
 			'file' => AttributeType::Mixed,
+			'version' => AttributeType::Mixed,
+			'urls' => AttributeType::Mixed,
 		));
 	}
 
-    public function url(array $options = array()) {
+    public function saveVersion($name, $slug, $checksum)
+    {
+        if (!isset($this->version[$name])) {
+            return null;
+        }
+        $data = $this->version[$name];
+        if (!is_array($data)) {
+            return null;
+        }
+        if (!isset($data['coords'])) {
+            $data = array('coords' => $data, 'width'=>100,'height'=>100);
+        }
+        list($x, $y, $w, $h) = $data['coords'];
+        list($basename) = explode('.', $this->name);
+        $hash = $this->getHash(array($x, $x+$w, $y, $y+$h));
+        if ($hash === $checksum) {
+            return null;
+        }
+        $payload = array(
+            'slug' => $slug . '-' . $basename . '-' . $name,
+            'width' => $data['width'],
+            'height' => $data['height'],
+            'coords' => array($x, $y, $x + $w, $y + $h)
+        );
+        $result = $this->_client()->addMediaVersion($this->id, $payload);
+        $response = $result['version'];
+        $response['hash'] = $hash;
+        return $response;
+    }
+
+    public function getHash($coords)
+    {
+        return md5(implode('-', $coords));
+    }
+
+    public function versionUrl($name)
+    {
+        $data = $this->urls[$name];
+        $host = craft()->plugins->getPlugin('mediaflow')->getSettings()->url;
+        $path = $data['media'] . '/' . $data['slug'];
+        return $host . $path . $this->file['ending'];
+    }
+
+    public function url($options = array())
+    {
+        if (is_string($options)) {
+            return $this->versionUrl($options);
+        }
         $options += array(
             'width' => false,
             'height' => false,
@@ -51,5 +101,10 @@ class Mediaflow_MediaModel extends BaseModel
             $url .= '?original=1';
         }
         return $url;
+    }
+
+    protected function _client() {
+        $s = craft()->plugins->getPlugin('mediaflow')->getSettings();
+        return new KeymediaClient($s->username, $s->url, $s->apiKey);
     }
 }

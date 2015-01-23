@@ -1,0 +1,13 @@
+<div class="cropper-menu">
+    <div class="btngroup">
+        <button class="btn" type="button"
+            ng-repeat="(name,size) in versions"
+            ng-class="active===name?'active':''"
+            ng-click="crop(name,size)">
+                {{name}} ({{size[0]}}x{{size[1]}})
+        </button>
+    </div>
+</div>
+<div class="cropper">
+    <img ng-src="{{selected.shareUrl}}">
+</div>

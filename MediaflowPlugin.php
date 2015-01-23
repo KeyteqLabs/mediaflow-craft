@@ -6,6 +6,27 @@ file_exists($autoloaderPath) && require $autoloaderPath;
 
 class MediaflowPlugin extends BasePlugin {
 
+    public function init()
+    {
+        craft()->on('entries.onBeforeSaveEntry', function($event)
+        {
+            $entry = $event->params['entry'];
+            if (isset($entry->image)) {
+                $image = $entry->image;
+                $urls = $image->urls ?: array();
+                foreach ($image->version as $name => $version) {
+                    $hash = null;
+                    if (isset($urls[$name]) && isset($urls[$name]['hash'])) {
+                        $hash = $urls[$name]['hash'];
+                    }
+                    $urls[$name] = $image->saveVersion($name, $entry->slug, $hash);
+                }
+                $image->urls = $urls;
+                $entry->getContent()->setAttributes(compact('image'));
+            }
+        });
+    }
+
     public function getName()
     {
         return Craft::t('Mediaflow');
@@ -13,12 +34,12 @@ class MediaflowPlugin extends BasePlugin {
 
     public function getVersion()
     {
-        return '0.1.2';
+        return '1.0.0-rc1';
     }
 
     public function getDeveloper()
     {
-        return 'KeyTeq Labs';
+        return 'Keyteq Labs';
     }
 
     public function getDeveloperUrl()
@@ -29,10 +50,11 @@ class MediaflowPlugin extends BasePlugin {
 
     protected function defineSettings()
     {
+        $string = AttributeType::String;
         return array(
-            'url' => array(AttributeType::String, 'required' => true, 'label' => 'URL', 'default' => Craft::t('Mediaflow URL')),
-            'username' => array(AttributeType::String, 'required' => true, 'label' => 'Username', 'default' => Craft::t('Username')),
-            'apiKey' => array(AttributeType::String, 'required' => true, 'label' => 'API Key', 'default' => Craft::t('API key'))
+            'url' => array($string, 'required' => true, 'label' => 'URL', 'default' => Craft::t('Mediaflow URL')),
+            'username' => array($string, 'required' => true, 'label' => 'Username', 'default' => Craft::t('Username')),
+            'apiKey' => array($string, 'required' => true, 'label' => 'API Key', 'default' => Craft::t('API key'))
         );
     }
 

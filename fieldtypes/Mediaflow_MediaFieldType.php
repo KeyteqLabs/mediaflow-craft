@@ -8,6 +8,11 @@ class Mediaflow_MediaFieldType extends BaseFieldType
         return Craft::t('Mediaflow item');
     }
 
+    public function getSearchKeywords($value)
+    {
+        return 'mediaflow';
+    }
+
     public function getInputHtml($name, $value)
     {
         $id = craft()->templates->namespaceInputId($name);
@@ -17,6 +22,7 @@ class Mediaflow_MediaFieldType extends BaseFieldType
         return craft()->templates->render('mediaflow/input', array(
             'id' => $id,
             'name'  => $name,
+            'settings' => $this->getSettings(),
             'value' => $value ? $value->getAttributes() : $emptyDefaults,
             'emptyDefaults' => $emptyDefaults
         ));
@@ -26,7 +32,6 @@ class Mediaflow_MediaFieldType extends BaseFieldType
         if (!$value) {
             return null;
         }
-        $data = array();
         $copy = array(
             'name' => 'name',
             'host' => 'host',
@@ -36,13 +41,17 @@ class Mediaflow_MediaFieldType extends BaseFieldType
             'thumbnailUrl' => 'thumb',
             'thumb' => 'thumb',
             '_id' => 'id',
-            'id' => 'id'
+            'id' => 'id',
+            'version' => 'version',
+            'urls' => 'urls'
         );
+        $data = array();
         foreach ($copy as $now => $key) {
             if (isset($value[$now])) {
                 $data[$key] = $value[$now];
             }
         }
+        $data['fieldtype-settings'] = $this->getSettings();
         if (isset($value['file'])) {
             $file = $value['file'];
             $data['file'] = array(
@@ -55,8 +64,7 @@ class Mediaflow_MediaFieldType extends BaseFieldType
                 'ending' => isset($file['ending']) ? $file['ending'] : null
             );
         }
-        $model = Mediaflow_MediaModel::populateModel($data);
-        return $model;
+        return Mediaflow_MediaModel::populateModel($data);
     }
 
     public function prepValueFromPost($value)
@@ -69,6 +77,31 @@ class Mediaflow_MediaFieldType extends BaseFieldType
         }
         return $value;
     }
+
+    public function prepSettings($settings)
+    {
+        return array(
+            'versions' => json_decode($settings['versions']) ?: array()
+        );
+    }
+
+    public function defineSettings()
+    {
+        return array('versions' => AttributeType::Mixed);
+    }
+
+    /**
+	 * @inheritDoc ISavableComponentType::getSettingsHtml()
+	 *
+	 * @return string|null
+	 */
+	public function getSettingsHtml()
+	{
+		// If they are both selected or nothing is selected, the select showBoth.
+        return craft()->templates->render('mediaflow/fieldtype-settings', array(
+			'settings' => $this->getSettings()
+		));
+	}
 
     public function defineContentAttribute()
     {

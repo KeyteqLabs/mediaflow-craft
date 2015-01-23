@@ -1,4 +1,4 @@
-var mediaflow = angular.module('mediaflow', ['angularFileUpload']);
+var mediaflow = angular.module('mediaflow', ['angularFileUpload', 'mfImageCrop']);
 
 mediaflow.filter('sizeConverter', function () {
     return function (size, precision) {
@@ -72,6 +72,7 @@ mediaflow.controller('MediaFlowCtrl', function ($scope, $http, $upload) {
         }
     }
 });
+
 
 mediaflow.directive('showFocus', ['$timeout', function($timeout) {
     return function(scope, element, attrs) {
