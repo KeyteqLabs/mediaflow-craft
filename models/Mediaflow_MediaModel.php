@@ -20,6 +20,7 @@ class Mediaflow_MediaModel extends BaseModel
 			'shareUrl'    => AttributeType::String,
 			'file' => AttributeType::Mixed,
 			'version' => AttributeType::Mixed,
+			'versions' => AttributeType::Mixed,
 			'urls' => AttributeType::Mixed,
 		));
 	}
@@ -75,13 +76,16 @@ class Mediaflow_MediaModel extends BaseModel
 
     public function versionUrl($name)
     {
-        if (!isset($this->urls[$name])) {
-            return null;
+        if (isset($this->urls[$name])) {
+            $data = $this->urls[$name]; $host = craft()->plugins->getPlugin('mediaflow')->getSettings()->url;
+            $path = $data['media'] . '/' . $data['slug'];
+            return $host . $path . $this->file['ending'];
         }
-        $data = $this->urls[$name];
-        $host = craft()->plugins->getPlugin('mediaflow')->getSettings()->url;
-        $path = $data['media'] . '/' . $data['slug'];
-        return $host . $path . $this->file['ending'];
+        else {
+            $version = $this->versions[$name];
+            list($width, $height) = $version;
+            return $this->url(compact('width', 'height'));
+        }
     }
 
     public function url($options = array())

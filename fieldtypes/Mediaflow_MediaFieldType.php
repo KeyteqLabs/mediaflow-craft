@@ -43,6 +43,7 @@ class Mediaflow_MediaFieldType extends BaseFieldType
             '_id' => 'id',
             'id' => 'id',
             'version' => 'version',
+            'versions' => 'versions',
             'urls' => 'urls'
         );
         $data = array();
@@ -52,6 +53,7 @@ class Mediaflow_MediaFieldType extends BaseFieldType
             }
         }
         $data['fieldtype-settings'] = $this->getSettings();
+        $data['versions'] = $data['fieldtype-settings']['versions'];
         if (isset($value['file'])) {
             $file = $value['file'];
             $data['file'] = array(
