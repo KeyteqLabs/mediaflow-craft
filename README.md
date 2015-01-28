@@ -40,6 +40,9 @@ Craft CMS Keyteq Mediaflow plugin. Read more [Visit Mediaflow!](http://getmediaf
 </noscript>
 ```
 
-### Using Picturefill.js
-```
+If you use Interchange and have set crops for your image you can
+have Mediaflow build the interchange string straightup for you by specifying the crop aliases:
+
+```smarty
+<img data-interchange="{{media.interchange(['default','large'])}}">
 ```

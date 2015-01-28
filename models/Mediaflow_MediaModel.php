@@ -59,8 +59,25 @@ class Mediaflow_MediaModel extends BaseModel
         return md5(implode('-', $coords));
     }
 
+    /**
+     * Example usage:
+     * <img data-interchange="{{image.interchange(['default','large'])}}">
+     * This only works if you have specified crops with these names, and those crops have been set
+     */
+    public function interchange($versions = array())
+    {
+        $output = array();
+        foreach ($versions as $name) {
+            $output[] = '[' . $this->versionUrl($name) . " ($name)]";
+        }
+        return implode(', ', $output);
+    }
+
     public function versionUrl($name)
     {
+        if (!isset($this->urls[$name])) {
+            return null;
+        }
         $data = $this->urls[$name];
         $host = craft()->plugins->getPlugin('mediaflow')->getSettings()->url;
         $path = $data['media'] . '/' . $data['slug'];
