@@ -64,7 +64,15 @@ class Mediaflow_MediaFieldType extends BaseFieldType
                 'ending' => isset($file['ending']) ? $file['ending'] : null
             );
         }
-        return Mediaflow_MediaModel::populateModel($data);
+        $model = Mediaflow_MediaModel::populateModel($data);
+        if (!isset($data['shareUrl'])) {
+            $model->shareUrl = $model->url(array(
+                'width' => 2000,
+                'height' => 2000,
+                'crop' => false
+            ));
+        }
+        return $model;
     }
 
     public function prepValueFromPost($value)

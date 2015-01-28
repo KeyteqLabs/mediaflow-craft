@@ -13,16 +13,18 @@ class MediaflowPlugin extends BasePlugin {
             $entry = $event->params['entry'];
             if (isset($entry->image)) {
                 $image = $entry->image;
-                $urls = $image->urls ?: array();
-                foreach ($image->version as $name => $version) {
-                    $hash = null;
-                    if (isset($urls[$name]) && isset($urls[$name]['hash'])) {
-                        $hash = $urls[$name]['hash'];
+                if (is_array($image->version) || $image->version instanceof \Traversable) {
+                    $urls = $image->urls ?: array();
+                    foreach ($image->version as $name => $version) {
+                        $hash = null;
+                        if (isset($urls[$name]) && isset($urls[$name]['hash'])) {
+                            $hash = $urls[$name]['hash'];
+                        }
+                        $urls[$name] = $image->saveVersion($name, $entry->slug, $hash);
                     }
-                    $urls[$name] = $image->saveVersion($name, $entry->slug, $hash);
+                    $image->urls = $urls;
+                    $entry->getContent()->setAttributes(compact('image'));
                 }
-                $image->urls = $urls;
-                $entry->getContent()->setAttributes(compact('image'));
             }
         });
     }

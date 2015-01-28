@@ -41,6 +41,8 @@ angular.module('mfImageCrop', []).directive('mfImageCrop', function() {
             };
         },
         link: function($scope, $element, attrs, ctrl) {
+            var boxWidth = 600;
+            var boxHeight = 400;
             $scope.versions = objectify(attrs.versions);
             if (!('version' in $scope.selected)) {
                 $scope.selected.version = {};
@@ -58,8 +60,8 @@ angular.module('mfImageCrop', []).directive('mfImageCrop', function() {
                 var width = size[0], height = size[1];
                 $crop.Jcrop({
                     aspectRatio: width / height,
-                    boxWidth: 600,
-                    boxHeight: 400,
+                    boxWidth: boxWidth,
+                    boxHeight: boxHeight,
                     setSelect: (selection || [0, 0, width, height])
                 }, onInitialize);
             };
@@ -71,6 +73,19 @@ angular.module('mfImageCrop', []).directive('mfImageCrop', function() {
                 var selection = crops && name in crops ? crops[name].coords : null;
                 setCrop(selection, size);
                 setCrop(selection, size);
+            }
+            if ($scope.selected) {
+                var w = $scope.selected.file.width;
+                var h = $scope.selected.file.height;
+                var ratio = w/h;
+                var boxRatio = boxWidth/boxHeight;
+                var factor = ratio > boxRatio ? w / boxWidth : h / boxHeight;
+                var iw = w / factor;
+                var ih = h / factor;
+                $scope.box = [iw,ih];
+            }
+            else {
+                $scope.box = [100,100];
             }
             setTimeout(function() {
                 for (var version in $scope.versions) {
