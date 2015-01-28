@@ -113,6 +113,9 @@
         text-transform: capitalize;
     }
 }
+.cropper .jcrop-active>img {
+	@include checkered();
+}
 
 
 @import 'spinner';
