@@ -113,8 +113,10 @@
         text-transform: capitalize;
     }
 }
-.cropper .jcrop-active>img {
-	@include checkered();
+.cropper {
+    &>img, .jcrop-active>img {
+        @include checkered();
+    }
 }
 
 
