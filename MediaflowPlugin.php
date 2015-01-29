@@ -11,18 +11,20 @@ class MediaflowPlugin extends BasePlugin {
         craft()->on('entries.onBeforeSaveEntry', function($event)
         {
             $entry = $event->params['entry'];
-            if (isset($entry->image)) {
-                $image = $entry->image;
-                if (is_array($image->version) || $image->version instanceof \Traversable) {
-                    $urls = $image->urls ?: array();
-                    foreach ($image->version as $name => $version) {
+            foreach ($entry as $field) {
+                $isMediaField = $field instanceof Mediaflow_MediaFieldType;
+                if (!$isMediaField) continue;
+                $supportsCrop = is_array($field->version) || $field->version instanceof \Traversable;
+                if ($supportsCrop) {
+                    $urls = $field->urls ?: array();
+                    foreach ($field->version as $name => $version) {
                         $hash = null;
                         if (isset($urls[$name]) && isset($urls[$name]['hash'])) {
                             $hash = $urls[$name]['hash'];
                         }
-                        $urls[$name] = $image->saveVersion($name, $entry->slug, $hash);
+                        $urls[$name] = $field->saveVersion($name, $entry->slug, $hash);
                     }
-                    $image->urls = $urls;
+                    $field->urls = $urls;
                     $entry->getContent()->setAttributes(compact('image'));
                 }
             }
