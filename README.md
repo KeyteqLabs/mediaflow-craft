@@ -22,6 +22,15 @@ Craft CMS Keyteq Mediaflow plugin. Read more [Visit Mediaflow!](http://getmediaf
 
 ## Example of usage
 
+## Definition of crop sizes
+You can define crop sizes in the Mediaflow custom fields
+```json
+{"main":[400,500],"list-view":[500,300],"thumb":[100,100],"content-head":[800,316]}
+```
+In your template you can do the following:
+```twig
+<img src="{{ entry.yourImage.url('list-view') }}" />
+```
 ### Generating a media preview URL
 
 ```smarty
