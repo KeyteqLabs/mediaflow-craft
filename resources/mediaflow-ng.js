@@ -54,23 +54,6 @@ mediaflow.controller('MediaFlowCtrl', function ($scope, $http, $upload) {
             });
         });
     };
-
-    $scope.onFileSelect = function($files) {
-        $scope.spin = true;
-        for (var i = 0; i < $files.length; i++) {
-            var $file = $files[i];
-            $scope.upload = $upload.upload({
-                url: '/admin/mediaflow/upload',
-                file: $file
-            }).then(function(args) {
-                $scope.media.unshift(args.data);
-                $scope.spin = false;
-            }, function(args) {
-                console.log('err', args);
-                $scope.spin = false;
-            });
-        }
-    }
 });
 
 
@@ -123,6 +106,23 @@ mediaflow.controller('MediaFlowFieldCtrl', function ($scope, $http, $upload) {
         if (!$el) { return; }
         $el.click();
     };
+
+    $scope.onFileSelect = function($files) {
+        $scope.spin = true;
+        for (var i = 0; i < $files.length; i++) {
+            var $file = $files[i];
+            $scope.upload = $upload.upload({
+                url: '/admin/mediaflow/upload',
+                file: $file
+            }).then(function(args) {
+                $scope.media.unshift(args.data);
+                $scope.spin = false;
+            }, function(args) {
+                console.log('err', args);
+                $scope.spin = false;
+            });
+        }
+    }
 });
 
 mediaflow.controller('MediaFlowBrowseCtrl', function ($scope, $http, $upload) {
@@ -148,4 +148,21 @@ mediaflow.controller('MediaFlowBrowseCtrl', function ($scope, $http, $upload) {
             timeout = setTimeout(updateMedia, 250, searchText);
         }
     });
+
+    $scope.onFileSelect = function($files) {
+        $scope.spin = true;
+        for (var i = 0; i < $files.length; i++) {
+            var $file = $files[i];
+            $scope.upload = $upload.upload({
+                url: '/admin/mediaflow/upload',
+                file: $file
+            }).then(function(args) {
+                $scope.media.unshift(args.data);
+                $scope.spin = false;
+            }, function(args) {
+                console.log('err', args);
+                $scope.spin = false;
+            });
+        }
+    }
 });

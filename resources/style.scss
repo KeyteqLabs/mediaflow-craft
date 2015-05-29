@@ -105,6 +105,15 @@
         margin-left: -10px;
     }
 }
+.mediaflow-upload-cell {
+  width: 150px;
+  .buttons .mediaflow-upload-button.btn {
+    margin-top: 3px;
+  }
+}
+.mediaflow-spinner {
+  left:128px;
+}
 
 .cropper-menu {
     margin: 0 0 10px 0;
