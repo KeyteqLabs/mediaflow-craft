@@ -28,6 +28,14 @@ class Mediaflow_MediaFieldType extends BaseFieldType
         ));
     }
 
+    public function getStaticHtml($value)
+    {
+        $inputHtml = $this->getInputHtml($this->model->attributes['handle'], $value);
+        $inputHtml = preg_replace('/<(?:input|textarea|select|button)\s[^>]*/i', '$0 disabled', $inputHtml);
+
+        return $inputHtml;
+    }
+
     public function prepValue($value) {
         if (!$value) {
             return null;
