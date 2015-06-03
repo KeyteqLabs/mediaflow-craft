@@ -11,21 +11,30 @@ class MediaflowPlugin extends BasePlugin {
         craft()->on('entries.onBeforeSaveEntry', function($event)
         {
             $entry = $event->params['entry'];
-            foreach ($entry as $field) {
-                $isMediaField = $field instanceof Mediaflow_MediaFieldType;
-                if (!$isMediaField) continue;
-                $supportsCrop = is_array($field->version) || $field->version instanceof \Traversable;
+            $fieldLayout = $entry->getFieldLayout();
+            $fields = $fieldLayout->getFields();
+
+            foreach ($fields as $fieldLayoutField) {
+                $field = $fieldLayoutField->getField();
+                $isMediaField = $field->getFieldType() instanceof Mediaflow_MediaFieldType;
+                if (!$isMediaField) {
+                    continue;
+                }
+
+                $handle = $field->handle;
+                $fieldValue = $entry->$handle;
+                $supportsCrop = is_array($fieldValue->version) || $fieldValue->version instanceof \Traversable;
                 if ($supportsCrop) {
-                    $urls = $field->urls ?: array();
-                    foreach ($field->version as $name => $version) {
+                    $urls = $fieldValue->urls ?: array();
+                    foreach ($fieldValue->version as $name => $version) {
                         $hash = null;
                         if (isset($urls[$name]) && isset($urls[$name]['hash'])) {
                             $hash = $urls[$name]['hash'];
                         }
-                        $urls[$name] = $field->saveVersion($name, $entry->slug, $hash);
+                        $urls[$name] = $fieldValue->saveVersion($name, $entry->slug, $hash);
                     }
-                    $field->urls = $urls;
-                    $entry->getContent()->setAttributes(compact('image'));
+                    $fieldValue->urls = $urls;
+                    $entry->getContent()->setAttribute($handle, $fieldValue);
                 }
             }
         });
