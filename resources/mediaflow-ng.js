@@ -82,7 +82,9 @@ mediaflow.controller('MediaFlowFieldCtrl', function ($scope, $http, $upload) {
                 $scope.spin = false;
             });
     };
-    updateMedia();
+    $scope.triggerUpdate = function() {
+        updateMedia();
+    };
 
     var timeout;
     $scope.$watch('searchText', function(searchText, ov) {

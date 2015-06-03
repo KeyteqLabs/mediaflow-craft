@@ -36,7 +36,7 @@
 
         <button type="button"
             class="btn dashed"
-            ng-click="showMedia = true;scaling = false">Browse</button>
+            ng-click="showMedia = true;scaling = false;triggerUpdate()">Browse</button>
         <button type="button"
             class="btn"
             ng-show="selected.id"
@@ -73,7 +73,7 @@
                         Upload
                     </button>
                     <div class="mediaflow-spinner" ng-class="{hidden: !spin}">Loading ...</div>
-                    <a class="close" ng-click="showMedia = false">Close</a>
+                    <a class="close" ng-click="showMedia = false;searchText = ''">Close</a>
                 </div>
             </div>
 
