@@ -49,6 +49,9 @@ In your template you can do the following:
 </noscript>
 ```
 
-### Using Picturefill.js
-```
+If you use Interchange and have set crops for your image you can
+have Mediaflow build the interchange string straightup for you by specifying the crop aliases:
+
+```smarty
+<img data-interchange="{{media.interchange(['default','large'])}}">
 ```

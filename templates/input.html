@@ -34,17 +34,29 @@
                 </table>
         </div>
 
-        <button
-            type="button"
+        <button type="button"
             class="btn dashed"
-            ng-show="!showMedia"
-            ng-click="showMedia = true">Browse</button>
-        <button
-            type="button"
+            ng-click="showMedia = true;scaling = false;triggerUpdate()">Browse</button>
+        <button type="button"
+            class="btn"
+            ng-show="selected.id"
+            ng-click="scaling = true; showMedia = false">Crop</button>
+        <button type="button"
             class="btn danger"
             ng-show="selected.id"
-            ng-click="selected = emptyDefaults">Remove</button>
+            ng-click="selected = emptyDefaults;scaling = false">Remove</button>
 
+        <div ng-if="selected.id && scaling" class="mediaflow-fold scaler">
+            <div class="clearafter">
+                <mf-image-crop 
+                    {% endraw %}
+                    versions={{settings.versions|json_encode()}}
+                    {% raw %}
+                    selected="selected">
+                    No media selected, no crop possible
+                </mf-image-crop>
+            </div>
+        </div>
         <div ng-show="showMedia" class="mediaflow-fold">
             <div class="clearafter">
                 <div class="texticon search icon">
@@ -61,29 +73,29 @@
                         Upload
                     </button>
                     <div class="mediaflow-spinner" ng-class="{hidden: !spin}">Loading ...</div>
-                    <a class="close" ng-click="showMedia = false">Close</a>
+                    <a class="close" ng-click="showMedia = false;searchText = ''">Close</a>
                 </div>
             </div>
 
             <div class="thumbs clearafter">
                 <ul>
-                    <li ng-repeat="medium in media">
-                        <img ng-show="medium.isImage"
-                            ng-src="{{medium.thumb}}"
-                            ng-click="select(medium)"
-                        >
+                    <li ng-repeat="medium in media" ng-show="medium.isImage">
+                        <img ng-src="{{medium.thumb}}" ng-click="select(medium)">
                     </li>
                 </ul>
             </div>
         </div>
+        <input type="hidden" value="{{selected|json}}"
         {% endraw %}
+            name="{{name}}">
         <div ng-init="selected={{value|json_encode()}}"></div>
-        <input type="hidden"
-            {% raw %}value="{{selected|json}}"{% endraw %}
-            name="{{name}}" />
     </div>
 </div>
 {% includeJsResource "mediaflow/angular.min.js" %}
 {% includeJsResource "mediaflow/angularjs-file-upload.js" %}
+{% includeJsResource "mediaflow/jcrop.js" %}
+{% includeJsResource "mediaflow/ng-image-crop.js" %}
 {% includeJsResource "mediaflow/mediaflow-ng.js" %}
+
+{% includeCssResource "mediaflow/jcrop.css" %}
 {% includeCssResource "mediaflow/style.css" %}

@@ -4,25 +4,6 @@
 {% set hasSidebar = true %}
 
 {% set sidebar %}
-<div class="buttons first">
-    <input type="file"
-        multiple="multiple"
-        name="assets-upload"
-        style="display: none;">
-    <div class="btn submit assets-upload-button"
-        data-icon="↑"
-        style="position: relative; overflow: hidden;"
-        role="button"
-    >
-        <label for="mediaflow_file_upload">Upload files</label>
-        <input style="display:none"
-            id="mediaflow_file_upload"
-            type="file"
-            ng-file-select="onFileSelect($files)"
-            multiple
-        >
-    </div>
-</div>
 <nav>
     <ul>
         <li>
@@ -43,6 +24,28 @@
                 <table class="inputs fullwidth">
                     <tbody>
                     <tr>
+                        <td class="mediaflow-upload-cell">
+                            <div class="buttons first">
+                                <input type="file"
+                                       multiple="multiple"
+                                       name="assets-upload"
+                                       style="display: none;">
+
+                                <div class="btn submit assets-upload-button mediaflow-upload-button"
+                                     data-icon="↑"
+                                     style="position: relative; overflow: hidden;"
+                                     role="button"
+                                        >
+                                    <label for="mediaflow_file_upload">Upload files</label>
+                                    <input style="display:none"
+                                           id="mediaflow_file_upload"
+                                           type="file"
+                                           ng-file-select="onFileSelect($files)"
+                                           multiple
+                                            >
+                                </div>
+                            </div>
+                        </td>
                         <td>
                             <div class="texticon search icon">
                                 <input class="text nicetext fullwidth" type="search" autocomplete="off" ng-model="searchText"
@@ -60,7 +63,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <div class="spinner hidden" ng-class="{hidden: !spin}"></div>
+                <div class="spinner hidden mediaflow-spinner" ng-class="{hidden: !spin}"></div>
             </div>
 
             <div class="elements" ng-show="view==='list'">
@@ -107,6 +110,8 @@
 {% endraw %}
 
 {% includeJsResource "mediaflow/angularjs-file-upload.js" %}
+{% includeJsResource "mediaflow/jcrop.js" %}
+{% includeJsResource "mediaflow/ng-image-crop.js" %}
 {% includeJsResource "mediaflow/mediaflow-ng.js" %}
 {% includeCssResource "mediaflow/style.css" %}
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>

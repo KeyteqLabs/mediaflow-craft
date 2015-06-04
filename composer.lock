@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6b09e52cdcf30f80f42d115da51479db",
+    "hash": "da7dec7c2626742f7c0c782e7865478b",
     "packages": [
         {
             "name": "composer/installers",
-            "version": "v1.0.19",
+            "version": "v1.0.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "89d77bfbee79e16653f7162c86e602cc188471db"
+                "reference": "1bff8aa77a18f3616f468ed8000cf86a5725bac3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/89d77bfbee79e16653f7162c86e602cc188471db",
-                "reference": "89d77bfbee79e16653f7162c86e602cc188471db",
+                "url": "https://api.github.com/repos/composer/installers/zipball/1bff8aa77a18f3616f468ed8000cf86a5725bac3",
+                "reference": "1bff8aa77a18f3616f468ed8000cf86a5725bac3",
                 "shasum": ""
             },
             "replace": {
@@ -59,6 +59,7 @@
                 "Hurad",
                 "MODX Evo",
                 "OXID",
+                "SMF",
                 "Thelia",
                 "WolfCMS",
                 "agl",
@@ -97,20 +98,20 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2014-11-29 01:29:17"
+            "time": "2015-01-11 03:51:11"
         },
         {
             "name": "keyteqlabs/keymedia",
-            "version": "v1.1.1",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KeyteqLabs/keymedia-php.git",
-                "reference": "cbb39681dde79ca0e11df29bf16e5b0353a74681"
+                "reference": "a1f03533d6ec737b9089a67ec97b2544bf741b84"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KeyteqLabs/keymedia-php/zipball/cbb39681dde79ca0e11df29bf16e5b0353a74681",
-                "reference": "cbb39681dde79ca0e11df29bf16e5b0353a74681",
+                "url": "https://api.github.com/repos/KeyteqLabs/keymedia-php/zipball/a1f03533d6ec737b9089a67ec97b2544bf741b84",
+                "reference": "a1f03533d6ec737b9089a67ec97b2544bf741b84",
                 "shasum": ""
             },
             "require": {
@@ -148,7 +149,7 @@
                 }
             ],
             "description": "Keymedia API wrapper in PHP",
-            "time": "2014-12-17 12:32:14"
+            "time": "2015-01-23 13:18:32"
         },
         {
             "name": "mashape/unirest-php",

@@ -1,0 +1,7 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.textareaField({
+	id: 'versions',
+	name: 'versions',
+	value: settings.versions|json_encode()
+}) }}

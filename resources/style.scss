@@ -86,9 +86,13 @@
         float: right;
     }
 
+    &.scaler:after {
+        left: 118px;
+    }
+
     &:after {
         bottom: 100%;
-        left: 5%;
+        left: 56px;
         border: solid transparent;
         content: " ";
         height: 0;
@@ -101,5 +105,28 @@
         margin-left: -10px;
     }
 }
+.mediaflow-upload-cell {
+  width: 150px;
+  .buttons .mediaflow-upload-button.btn {
+    margin-top: 3px;
+  }
+}
+.mediaflow-spinner {
+  left:128px;
+}
+
+.cropper-menu {
+    margin: 0 0 10px 0;
+    clear: both;
+    button {
+        text-transform: capitalize;
+    }
+}
+.cropper {
+    &>img, .jcrop-active>img {
+        @include checkered();
+    }
+}
+
 
 @import 'spinner';

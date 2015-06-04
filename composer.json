@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "keyteqlabs/keymedia": "~1.1",
+        "keyteqlabs/keymedia": "~1.2",
         "composer/installers": "~1.0"
     },
     "autoload": {
