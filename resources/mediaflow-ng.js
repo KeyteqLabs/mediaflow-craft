@@ -77,7 +77,7 @@ mediaflow.controller('MediaFlowFieldCtrl', function ($scope, $http, $upload) {
             .getMedia(search)
             .success(function(results) {
                 $scope.media.splice
-                    .bind($scope.media, 0, $scope.media.length - 1)
+                    .bind($scope.media, 0, $scope.media.length)
                     .apply($scope.media, results);
                 $scope.spin = false;
             });
